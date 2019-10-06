@@ -8,7 +8,7 @@ const params = {
     server: config.DB.SERVER,
     database: config.DB.DATABASE,
     user: config.DB.USER,
-    password: config.DB.PASSWOORD,
+    password: config.DB.PASSWORD,
     port: config.DB.PORT,
     connectionTimeout: config.DB.TIMEOUT,
     parseJSON: config.DB.PARSE_JSON
