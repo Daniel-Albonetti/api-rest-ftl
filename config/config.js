@@ -7,7 +7,7 @@ require('dotenv').config({
 
 const config = () => {
     let envJSON = require(path.join(__dirname, 'config.json'));
-    let node_env = process.env.NODE_ENV || 'development';
+    let node_env = process.env.NODE_ENV || 'local';
     return envJSON[node_env];
 }
 
