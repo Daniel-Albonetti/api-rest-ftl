@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path');
-const config = require(path.join(__dirname, 'config', 'config.js')).config();
+const config = require(path.join(__dirname, 'config.js')).config();
 const mssql = require('mssql');
 
 const params = {
