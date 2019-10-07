@@ -8,7 +8,7 @@ const mssql = require(path.join(path.dirname(__dirname), 'config', 'database.js'
 
 let verifyTokenAPI = (req, res, next) => {
     try {
-        let token = req.cookies.token;
+        let token = req.headers['authorization']
         if (!token) {
             res.status(400).send({
                 error: "Es Necesario el Token de Autenticación \nHTTP/1.0 400 Bad Request"
@@ -20,8 +20,9 @@ let verifyTokenAPI = (req, res, next) => {
                 res.status(401).send({
                     error: 'Token Inválido \nHTTP/1.0 401 Unauthorized'
                 });
+            } else {
+                next();
             }
-            next();
         });
     } catch (error) {
         res.status(500).send({
