@@ -11,14 +11,14 @@ let verifyTokenAPI = (req, res, next) => {
         let token = req.headers['authorization']
         if (!token) {
             res.status(400).send({
-                error: "Es Necesario el Token de Autenticación \nHTTP/1.0 400 Bad Request"
+                error: 'HTTP/1.0 400 Bad Request\n Es Necesario el Token de Autenticación'
             });
         }
         token = token.replace('Bearer ', '');
         jwt.verify(token, config.JWT.API.SECRET, (err, user) => {
             if (err) {
                 res.status(401).send({
-                    error: 'Token Inválido \nHTTP/1.0 401 Unauthorized'
+                    error: 'HTTP/1.0 401 Unauthorized\n Token Inválido'
                 });
             } else {
                 next();
@@ -26,7 +26,7 @@ let verifyTokenAPI = (req, res, next) => {
         });
     } catch (error) {
         res.status(500).send({
-            error: 'Error de Servidor \nHTTP/1.0 500 Internal Server Error'
+            error: 'HTTP/1.0 500 Internal Server\n Error Error de Servidor'
         });
     }
 };
@@ -51,12 +51,12 @@ let getTokenAPI = async(req, res, next) => {
             next();
         } else {
             res.status(400).send({
-                error: 'Usuario o Contraseña Inválidos \nHTTP/1.0 400 Bad Request'
+                error: 'HTTP/1.0 400 Bad Request\n Usuario o Contraseña Inválidos'
             });
         }
     } catch (error) {
         res.status(500).send({
-            error: 'Error de Servidor \nHTTP/1.0 500 Internal Server Error'
+            error: 'HTTP/1.0 500 Internal Server Error\n Error de Servidor'
         });
     }
 }

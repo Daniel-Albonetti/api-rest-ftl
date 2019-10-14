@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const getTokenAPI = require(path.join(path.dirname(__dirname), 'middleware', 'autorization.js')).getTokenAPI;
 const verifyTokenAPI = require(path.join(path.dirname(__dirname), 'middleware', 'autorization.js')).verifyTokenAPI;
+const cors = require(path.join(path.dirname(__dirname), 'middleware', 'cors.js')).cors;
 const pool = require(path.join(path.dirname(__dirname), 'config', 'database.js')).pool;
 const mssql = require(path.join(path.dirname(__dirname), 'config', 'database.js')).mssql;
 
@@ -15,7 +16,7 @@ router.get('/', verifyTokenAPI, (req, res) => {
     });
 });
 
-router.post('/authenticate', getTokenAPI, (req, res) => {
+router.post('/authenticate', cors, getTokenAPI, (req, res) => {
     if (req.token) {
         let token = req.token;
         res.status(200).send({
