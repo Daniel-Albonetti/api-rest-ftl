@@ -4,10 +4,10 @@ const router = express.Router();
 const productoAppController = require('../../../../controllers/producto_app');
 
 
-const { verificarToken } = require('../../../../middleware/autenticacion');
+const { verifyTokenXamari } = require('../../../../middleware/autorization');
 
 
 router.get('/lista-producto-app', productoAppController.listaProductoApp);
-router.post('/lista-curva', [ verificarToken ], productoAppController.listaCurva);
+router.post('/lista-curva', [ verifyTokenXamari ], productoAppController.listaCurva);
 
 module.exports = router;

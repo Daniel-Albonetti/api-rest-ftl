@@ -3,9 +3,9 @@ const router = express.Router();
 
 const stockDiarioInicialController = require('../../../../controllers/stock_diario_inicial');
 
-const { verificarToken } = require('../../../../middleware/autenticacion');
+const { verifyTokenXamari } = require('../../../../middleware/autorization');
 
-router.post('/registrar', [ verificarToken ], stockDiarioInicialController.crearStockDiarioInicial);
-router.post('/lista-stock', [ verificarToken ], stockDiarioInicialController.listaStockProducto);
+router.post('/registrar', [ verifyTokenXamari ], stockDiarioInicialController.crearStockDiarioInicial);
+router.post('/lista-stock', [ verifyTokenXamari ], stockDiarioInicialController.listaStockProducto);
 
 module.exports = router;
