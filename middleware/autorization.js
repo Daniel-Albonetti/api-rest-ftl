@@ -8,6 +8,14 @@ const {
     mssql
 } = require(path.join(process.cwd(), 'config', 'database.js'));
 
+let apiSecret = config.JWT.API.SECRET,
+    apiExpire = config.JWT.API.EXPIRES_IN,
+    flutterSecret = config.JWT.FLUTTER.SECRET,
+    flutterExpire = config.JWT.FLUTTER.EXPIRES_IN,
+    xamarinSecret = config.JWT.XAMARIN.SECRET,
+    xamarinExpire = config.JWT.XAMARIN.EXPIRES_IN;
+
+
 let verifyTokenAPI = (req, res, next) => {
     try {
         let token = req.headers['authorization']
@@ -17,7 +25,7 @@ let verifyTokenAPI = (req, res, next) => {
             });
         }
         token = token.replace('Bearer ', '');
-        jwt.verify(token, config.JWT.API.SECRET, (err, user) => {
+        jwt.verify(token, apiSecret, (err, user) => {
             if (err) {
                 res.status(401).send({
                     error: 'HTTP/1.0 401 Unauthorized\n Token Inválido'
@@ -48,8 +56,8 @@ let getTokenAPI = async (req, res, next) => {
             let tokenData = {
                 username: user
             };
-            let token = jwt.sign(tokenData, config.JWT.API.SECRET, {
-                expiresIn: config.JWT.API.EXPIRES_IN
+            let token = jwt.sign(tokenData, apiSecret, {
+                expiresIn: apiExpire
             });
             if (token) {
                 res.status(200).send({
@@ -88,8 +96,8 @@ let getTokenFlutter = async (req, res, next) => {
             let tokenData = {
                 username: data.usuario
             };
-            let token = jwt.sign(tokenData, config.JWT.FLUTTER.SECRET, {
-                expiresIn: config.JWT.FLUTTER.EXPIRES_IN
+            let token = jwt.sign(tokenData, flutterSecret, {
+                expiresIn: flutterExpire
             });
             if (token) {
                 res.status(200).send({
@@ -124,7 +132,7 @@ let verifyTokenFlutter = (req, res, next) => {
                 error: 'HTTP/1.0 400 Bad Request\n Es Necesario el Token de Autenticación'
             });
         }
-        jwt.verify(token, config.JWT.FLUTTER.SECRET, (err, user) => {
+        jwt.verify(token, flutterSecret, (err, user) => {
             if (err) {
                 res.status(401).send({
                     error: 'HTTP/1.0 401 Unauthorized\n Token Inválido'
@@ -142,9 +150,33 @@ let verifyTokenFlutter = (req, res, next) => {
     }
 };
 
+let verifyTokenXamari = async (req, res, next) => {
+    try {
+        let token = req.get('token');
+        let decoded = await jwt.verify(token, xamarinSecret);
+        req.usuario = decoded.usuario;
+        next();
+    } catch (e) {
+        if (e.message == 'jwt expired') {
+            res.status(500).json({
+                ok: false,
+                mensaje: e.name
+            });
+        } else {
+            res.status(500).json({
+                ok: false,
+                mensaje: 'ERROR EN PROCESO DE TOKEN'
+            });
+        }
+        next(e);
+    }
+}
+
+
 module.exports = {
     verifyTokenAPI,
     getTokenAPI,
     getTokenFlutter,
-    verifyTokenFlutter
+    verifyTokenFlutter,
+    verifyTokenXamari
 }

@@ -1,4 +1,8 @@
 node_modules/
+<<<<<<< HEAD
 config
+=======
+#config
+>>>>>>> 75543563d85150f60536631229fc4a1536982c5a
 #config/.env
 #config/config.json

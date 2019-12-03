@@ -8,6 +8,10 @@ const jwt = require('jsonwebtoken');
 const ctrUsuarioApp = {};
 const mdlUsuarioApp = require('../models/usuario_app');
 const mdlTienda = require('../models/tiendas');
+const path = require('path');
+const config = require(path.join(process.cwd(), 'config', 'config.js')).config();
+let xamarinSecret = config.JWT.XAMARIN.SECRET,
+    xamarinExpire = config.JWT.XAMARIN.EXPIRES_IN;
 
 /*============================
 METOGO POST | /registrar
@@ -69,7 +73,7 @@ ctrUsuarioApp.loginUsuarioApp = async (req, res, next) => {
             tienda: respuesta.tienda
         }
 
-        let token = jwt.sign({usuario: datos}, process.env.Clave, { expiresIn: process.env.CADUCIDAD_TOKEN });
+        let token = jwt.sign({usuario: datos}, xamarinSecret, { expiresIn: xamarinExpire });
 
         res.status(200).json({ok: true, token: token});
         
