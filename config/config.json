@@ -58,10 +58,10 @@
         "PORT": 3000,
         "DB": {
             "SQL": {
-                "SERVER": "localhost",
+                "SERVER": "192.168.1.172",
                 "DATABASE": "bd_passarela",
                 "USER": "sa",
-                "PASSWORD": "1q2w3e4r",
+                "PASSWORD": "1q2w3e4r.",
                 "PORT": 1433,
                 "TIMEOUT": 20000,
                 "PARSE_JSON": true
