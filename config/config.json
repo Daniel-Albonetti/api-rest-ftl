@@ -1,0 +1,115 @@
+{
+    "production": {
+        "HOST": "api.footloose.pe",
+        "PORT": 999,
+        "DB": {
+            "SQL": {
+                "SERVER": "192.168.3.10",
+                "DATABASE": "bd_passarela",
+                "USER": "apirest",
+                "PASSWORD": ")*j43[1>&2",
+                "PORT": 1433,
+                "TIMEOUT": 20000,
+                "PARSE_JSON": true
+            },
+            "MONGO": {
+                "SERVER": "192.168.3.66",
+                "DATABASE": "db_footloose",
+                "USER": "ecommerce",
+                "PASSWORD": "f0otl0os2.2o",
+                "PORT": 27017
+            }
+        },
+        "JWT": {
+            "API": {
+                "SECRET": "familiafootloose",
+                "EXPIRES_IN": 60
+            },
+            "FLUTTER": {
+                "SECRET": "qwerty123*",
+                "EXPIRES_IN": 43200
+            }
+        },
+        "MERCADOLIBRE": {
+            "CLIENTID": "2070640967246296",
+            "CLIENTSECRET": "7qE9j7i7k3Ki6JautjBHc7sNCeX3Z293"
+        },
+        "CRYPTO": {
+            "MAIL": {
+                "SECRET": "cyberfootloose"
+            }
+        },
+        "NODEMAILER": {
+            "MAILING": {
+                "HOST": "mail.passarela.pe",
+                "PORT": 587,
+                "SECURE": false,
+                "USER": "miguel.duran@footloose.pe",
+                "PASSWORD": "Claro123"
+            }
+        }
+    },
+    "development": {
+        "HOST": "http://localhost:999/",
+        "PORT": 999
+    },
+    "local": {
+        "HOST": "localhost",
+        "PORT": 3000,
+        "DB": {
+            "SQL": {
+                "SERVER": "192.168.3.10",
+                "DATABASE": "bd_passarela",
+                "USER": "apirest",
+                "PASSWORD": ")*j43[1>&2",
+                "PORT": 1433,
+                "TIMEOUT": 20000,
+                "PARSE_JSON": true
+            },
+            "MONGO": {
+                "SERVER": "192.168.3.66",
+                "DATABASE": "db_footloose",
+                "USER": "ecommerce",
+                "PASSWORD": "f0otl0os2.2o",
+                "PORT": 27017
+            }
+        },
+        "JWT": {
+            "API": {
+                "SECRET": "familiafootloose",
+                "EXPIRES_IN": 60
+            },
+            "FLUTTER": {
+                "SECRET": "qwerty123*",
+                "EXPIRES_IN": 43200
+            }
+        },
+        "CREDENTIALS": {
+            "MERCADOLIBRE": {
+                "CLIENTID": "2070640967246296",
+                "CLIENTSECRET": "7qE9j7i7k3Ki6JautjBHc7sNCeX3Z293"
+            },
+            "VTEX": {
+                "APPKEY": "vtexappkey-passarelape-PCMPGX",
+                "APPTOKEN": "PBYDXOLYIULIRNFLPOEMJVNULWXTZZDFZGUPGVGWNTYBHWMOLHASQEKTNESBQRZJRFJLSPFTIIZPXMMOJJIRYKPUVACCDEFWTOKCNAVWCHKIEUWBRERGIIKGPOPRNCPD"
+            },
+            "WOOWUP": {
+                "APPKEY": "Basic 547b8f01d0196f06a3d6b652ad7eb555860143239af2fcc1f71a647c350e1545"
+            }
+        },
+        "CRYPTO": {
+            "MAIL": {
+                "SECRET": "cyberfootloose"
+            }
+        },
+        "NODEMAILER": {
+            "MAILING": {
+                "HOST": "mail.passarela.pe",
+                "PORT": 587,
+                "SECURE": false,
+                "USER": "miguel.duran@footloose.pe",
+                "PASSWORD": "Claro123"
+            }
+        }
+    }
+}

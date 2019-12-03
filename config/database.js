@@ -5,13 +5,13 @@ const config = require(path.join(__dirname, 'config.js')).config();
 const mssql = require('mssql');
 
 const params = {
-    server: config.DB.SERVER,
-    database: config.DB.DATABASE,
-    user: config.DB.USER,
-    password: config.DB.PASSWORD,
-    port: config.DB.PORT,
-    connectionTimeout: config.DB.TIMEOUT,
-    parseJSON: config.DB.PARSE_JSON
+    server: config.DB.SQL.SERVER,
+    database: config.DB.SQL.DATABASE,
+    user: config.DB.SQL.USER,
+    password: config.DB.SQL.PASSWORD,
+    port: config.DB.SQL.PORT,
+    connectionTimeout: config.DB.SQL.TIMEOUT,
+    parseJSON: config.DB.SQL.PARSE_JSON
 }
 
 const pool = new mssql.ConnectionPool(params)
@@ -21,9 +21,6 @@ const pool = new mssql.ConnectionPool(params)
         return pool;
     })
     .catch(err => console.log('Database Connection Failed! \n Error =>', err));
-
-
 module.exports = {
-    mssql,
-    pool
+    mssql,pool
 }
