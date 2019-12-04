@@ -11,7 +11,7 @@ const {
 } = require(path.join(__dirname, 'app', 'almacen_stock.js'));
 
 let timeStatus_Vtex = 10 * 60 * 1000; //10 min
-let timeStock_Movimientos = 60*60*1000; // 1 hora
+let timeStock_Movimientos = 20000; // 1 hora
 
 stockMovimientos();
 statusFeed();
