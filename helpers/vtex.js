@@ -1,9 +1,10 @@
 'use strict'
 const path = require('path');
+const config = require(path.join(process.cwd(), 'config', 'config.js')).config();
 const fetch = require('node-fetch');
 
-const appKey = 'vtexappkey-passarelape-PCMPGX';
-const appToken = 'PBYDXOLYIULIRNFLPOEMJVNULWXTZZDFZGUPGVGWNTYBHWMOLHASQEKTNESBQRZJRFJLSPFTIIZPXMMOJJIRYKPUVACCDEFWTOKCNAVWCHKIEUWBRERGIIKGPOPRNCPD';
+const appKey = config.CREDENTIALS.VTEX.APPKEY;
+const appToken = config.CREDENTIALS.VTEX.APPTOKEN;
 
 const {
     checkStatus,checkStatus2

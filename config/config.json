@@ -34,9 +34,18 @@
                 "EXPIRES_IN": "24h"
             }
         },
-        "MERCADOLIBRE": {
-            "CLIENTID": "2070640967246296",
-            "CLIENTSECRET": "7qE9j7i7k3Ki6JautjBHc7sNCeX3Z293"
+        "CREDENTIALS": {
+            "MERCADOLIBRE": {
+                "CLIENTID": "2070640967246296",
+                "CLIENTSECRET": "7qE9j7i7k3Ki6JautjBHc7sNCeX3Z293"
+            },
+            "VTEX": {
+                "APPKEY": "vtexappkey-passarelape-PCMPGX",
+                "APPTOKEN": "PBYDXOLYIULIRNFLPOEMJVNULWXTZZDFZGUPGVGWNTYBHWMOLHASQEKTNESBQRZJRFJLSPFTIIZPXMMOJJIRYKPUVACCDEFWTOKCNAVWCHKIEUWBRERGIIKGPOPRNCPD"
+            },
+            "WOOWUP": {
+                "APPKEY": "Basic 547b8f01d0196f06a3d6b652ad7eb555860143239af2fcc1f71a647c350e1545"
+            }
         },
         "CRYPTO": {
             "MAIL": {
