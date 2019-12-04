@@ -31,9 +31,9 @@ ctrUsuarioApp.crearUsuarioApp = async (req, res, next) => {
         }
 
         req.body.clave = await bcryptjs.hash(req.body.clave, 10);
-        const respuesta = await mdlUsuarioApp.create(req.body);
-        const codigoUser = respuesta.codigo;
-        res.status(200).json({ok: true, codigoUser});
+        await mdlUsuarioApp.create(req.body);
+
+        res.status(200).json({ok: true, mensaje:"USUARIO CREADO CORRECTAMENTE"});
         
     } catch (e) {
         if (e.code == 11000) {
