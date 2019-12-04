@@ -42,21 +42,23 @@ let stockMovimientos = () => {
                         .then(res => res.json())
                         .then(stockDiarioMov => {
 
-                            console.log('stockDiarioMov', stockDiarioMov);
+                            // console.log('stockDiarioMov', stockDiarioMov);
 
                         })
                         
                     }
 
-                }else{
-                    console.log("stockMov: ", stockMov);
                 }
+                // else{
+                //     console.log("stockMov: ", stockMov);
+                // }
 
             })
         
-        }else{
-            console.log("stockDiarioMovMongo: ", stockDiarioMovMongo);
         }
+        // else{
+        //     console.log("stockDiarioMovMongo: ", stockDiarioMovMongo);
+        // }
 
     })
 
