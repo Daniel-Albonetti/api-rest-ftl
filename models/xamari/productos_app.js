@@ -1,6 +1,4 @@
-/*===================================
-REQUIRIENDO MONGOOSE
-=====================================*/
+'use strict'
 
 const { model, Schema } = require('mongoose');
 
@@ -12,6 +10,8 @@ const productoAppSchema = new Schema({
     Modelo: { type: String, required: true },
     Descripcion: { type: String, required: true },
     urlimagen: { type: String },
+    Color: { type: String, maxlength: 50, required: true },
+    Talla: { type: String, maxlength: 50, required: true }
 
 })
 

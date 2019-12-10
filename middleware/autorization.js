@@ -172,11 +172,29 @@ let verifyTokenXamari = async (req, res, next) => {
     }
 }
 
+const verificarPerfilXamari = (req, res, next) => {
+
+    let usuario = req.usuario;
+
+    if (usuario.perfil === 'ADMIN_PERFIL') {
+        next();
+    }else{
+
+        return res.json({
+            ok: false,
+            mensaje: '¡ERROR! USUARIO NO AUTORIZADO'
+        })
+
+    }
+
+} 
+
 
 module.exports = {
     verifyTokenAPI,
     getTokenAPI,
     getTokenFlutter,
     verifyTokenFlutter,
-    verifyTokenXamari
+    verifyTokenXamari,
+    verificarPerfilXamari
 }

@@ -1,9 +1,9 @@
-/*=====================================
-REQUIRIENDO EL MODELO STOCK_DIARIO_MOV
-=======================================*/
+'use strict'
+
+const path = require('path');
 
 const ctrStockDiarioMov = {};
-const mdlStockDiarioMov = require('../models/stock_diario_mov');
+const mdlStockDiarioMov = require(path.join(process.cwd(), 'models', 'xamari', 'stock_diario_mov'));
 
 /*=================================
 METODO POST | /registrar

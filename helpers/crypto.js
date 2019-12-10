@@ -46,7 +46,20 @@ let decrypt = function(transitmessage, pass) {
     })
     return decrypted.toString(crypto.enc.Utf8);
 }
+
+const groupBy = function (miarray, prop) {
+    return miarray.reduce(function(groups, item) {
+        var val = item[prop];
+        groups[val] = groups[val] || {Codigointerno: item.Codigointerno, Tda: item.Tda, stock: 0, precioetiqueta: 0, precioventa: 0};
+        groups[val].stock += item.stock;
+        groups[val].precioetiqueta = item.precioetiqueta;
+        groups[val].precioventa = item.precioventa;
+        return groups;
+    }, {});
+}
+
 module.exports = {
     encrypt,
-    decrypt
+    decrypt,
+    groupBy
 }

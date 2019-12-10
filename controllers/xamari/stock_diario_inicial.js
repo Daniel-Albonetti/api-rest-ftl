@@ -1,11 +1,12 @@
-/*========================================
-REQUIRIENDO EL MODELO STOCK-DIARIO-INICIAL
-==========================================*/
+'use strict'
+
+const path = require('path');
 
 const ctrStockDiarioIncial = {};
-const mdlStockDiarioIncial = require('../models/stock_diario_inicial');
-const mdlStockDiarioMov = require('../models/stock_diario_mov');
-const mdlTienda = require('../models/tiendas');
+
+const mdlStockDiarioIncial = require(path.join(process.cwd(), 'models', 'xamari', 'stock_diario_inicial'));
+const mdlStockDiarioMov = require(path.join(process.cwd(), 'models', 'xamari', 'stock_diario_mov'));
+const mdlTienda = require(path.join(process.cwd(), 'models', 'xamari', 'tiendas'));
 
 /*==========================
 METOGO POST | /registrar

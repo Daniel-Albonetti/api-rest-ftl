@@ -1,9 +1,9 @@
-/*================================
-REQUIRIENDO EL MODELO TIENDA
-==================================*/
+'use strict'
+
+const path = require('path');
 
 const ctrTienda = {};
-const mdlTienda = require('../models/tiendas');
+const mdlTienda = require(path.join(process.cwd(), 'models', 'xamari', 'tiendas'));
 
 /*==========================
 METOGO POST | /registrar

@@ -1,13 +1,13 @@
+'use strict'
+
+const path = require('path');
 const express = require('express');
 const router = express.Router();
 
-const productoAppController = require('../../../../controllers/producto_app');
+const productoAppController = require(path.join(process.cwd(), 'controllers', 'xamari', 'producto_app'));
 
+const { verifyTokenXamari } = require(path.join(process.cwd(), 'middleware', 'autorization'));
 
-const { verifyTokenXamari } = require('../../../../middleware/autorization');
-
-
-router.get('/lista-producto-app', productoAppController.listaProductoApp);
 router.post('/lista-curva', [ verifyTokenXamari ], productoAppController.listaCurva);
 
 module.exports = router;
