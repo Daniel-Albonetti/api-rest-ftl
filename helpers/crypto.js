@@ -47,6 +47,10 @@ let decrypt = function(transitmessage, pass) {
     return decrypted.toString(crypto.enc.Utf8);
 }
 
+/*========================================
+FUNCIONES DE .....
+==========================================*/
+
 const groupBy = function (miarray, prop) {
     return miarray.reduce(function(groups, item) {
         var val = item[prop];
@@ -58,8 +62,32 @@ const groupBy = function (miarray, prop) {
     }, {});
 }
 
+function eliminarObjetosDuplicados(arr, prop) {
+    var nuevoArray = [];
+    var lookup  = {};
+
+    for (var i in arr) {
+
+        lookup[arr[i][prop]] = arr[i];
+        lookup[arr[i]['stock']] += arr[i]['stock'];
+
+    }
+
+    for (i in lookup) {
+
+        nuevoArray.push(lookup[i]);
+    }
+
+    return nuevoArray;
+}
+
+/*========================================
+FUNCIONES DE .....
+==========================================*/
+
 module.exports = {
     encrypt,
     decrypt,
-    groupBy
+    groupBy,
+    eliminarObjetosDuplicados
 }
