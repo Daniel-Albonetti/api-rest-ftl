@@ -19,7 +19,7 @@ let stockMovimientos = async () => {
     const data = await connect.request()
     .query(`SELECT * FROM [dbo].[tmp_alm_stock_diario_mov] WHERE id > ${valor}`);
     if(data.recordset.length <= 0){
-        return console.log('ERROR! NO SE ENCONTRARON DATOS');
+        return //console.log('ERROR! NO SE ENCONTRARON DATOS');
     }
 
     const datos =  data.recordset

@@ -8,7 +8,7 @@ const mdlProductoApp = require(path.join(process.cwd(), 'models', 'xamari', 'pro
 const mdlStockDiarioIncial = require(path.join(process.cwd(), 'models', 'xamari', 'stock_diario_inicial'));
 const mdlStockDiarioMov = require(path.join(process.cwd(), 'models', 'xamari', 'stock_diario_mov'));
 
-const { groupBy } = require(path.join(process.cwd(), 'helpers', 'crypto'));
+const { groupBy } = require(path.join(process.cwd(), 'helpers', 'function_daniel'));
 
 /*==========================
 METOGO POST | /lista-curva

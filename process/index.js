@@ -11,9 +11,9 @@ const {
 } = require(path.join(__dirname, 'app', 'almacen_stock.js'));
 
 let timeStatus_Vtex = 10 * 60 * 1000; //10 min
-// let timeStock_Movimientos = 20000; // 1 hora
+let timeStock_Movimientos = 60000; // 1 min
 
-// stockMovimientos();
+stockMovimientos();
 statusFeed();
 /**
  * Feed Status Vtex
@@ -25,6 +25,6 @@ setInterval(() => {
 /**
  * Stock Movimientos App - Daniel - Jose
  */
-// setInterval(() => {
-//   stockMovimientos();
-// }, timeStock_Movimientos);
+setInterval(() => {
+  stockMovimientos();
+}, timeStock_Movimientos);
