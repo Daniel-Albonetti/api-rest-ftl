@@ -90,8 +90,10 @@ let usersWoowUp = async () => {
             setUser(listUser[i])
         }
     } catch (err) {
-        console.log('err', err)
+        console.log('usersWoowUp =>', err)
     }
 }
 
-usersWoowUp();
+module.exports = {
+    usersWoowUp
+}

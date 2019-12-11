@@ -3,8 +3,14 @@
 const path = require('path');
 
 const {
-    statusFeed
-} = require(path.join(__dirname, 'vtex','download', 'vtex_status.js'));
+  statusFeed
+} = require(path.join(__dirname, 'vtex', 'download', 'vtex_status.js'));
+
+const {
+  stockVtexMorning,
+  stockVtexAfternoon,
+  stockVtexNight
+} = require(path.join(__dirname, 'vtex', 'stock', 'stock.js'));
 
 const {
   stockMovimientos
@@ -21,6 +27,12 @@ statusFeed();
 setInterval(() => {
   statusFeed();
 }, timeStatus_Vtex);
+/**
+ * Stock Vtex
+ */
+stockVtexMorning;
+stockVtexAfternoon;
+stockVtexNight;
 
 /**
  * Stock Movimientos App - Daniel - Jose

@@ -1,7 +1,7 @@
 'use strict'
 const path = require('path');
 const xl = require('excel4node');
-var schedule = require('node-schedule');
+const schedule = require('node-schedule');
 const moment = require('moment');
 
 const {
