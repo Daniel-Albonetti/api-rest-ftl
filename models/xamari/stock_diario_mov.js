@@ -1,6 +1,4 @@
-/*============================
-REQUIRIENDO MONGOOSE
-==============================*/
+'use strict'
 
 const { model, Schema } = require('mongoose');
 

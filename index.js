@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path');
 const express = require("express");
+const morgan = require('morgan');
 const app = express();
 const fs = require('fs');
 const https = require('https');
@@ -14,6 +15,7 @@ require(path.join(__dirname, 'config', 'mongodb.js'));
 /**
  * Configuraciones
  */
+app.use(morgan('dev'));
 app.set('port', config.PORT);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

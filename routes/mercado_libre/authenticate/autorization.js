@@ -8,8 +8,8 @@ const request = require('request');
 const config = require(path.join(process.cwd(), 'config', 'config.js')).config();
 
 let credentials = {
-    clientId: config.MERCADOLIBRE.CLIENTID,
-    clientSecret: config.MERCADOLIBRE.CLIENTSECRET
+    clientId: config.CREDENTIALS.MERCADOLIBRE.CLIENTID,
+    clientSecret: config.CREDENTIALS.MERCADOLIBRE.CLIENTSECRET
 }
 
 router.get('/footloose', function(req, res) {

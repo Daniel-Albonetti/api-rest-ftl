@@ -1,11 +1,12 @@
-/*========================================
-REQUIRIENDO EL MODELO STOCK-DIARIO-INICIAL
-==========================================*/
+'use strict'
+
+const path = require('path');
 
 const ctrStockDiarioIncial = {};
-const mdlStockDiarioIncial = require('../models/stock_diario_inicial');
-const mdlStockDiarioMov = require('../models/stock_diario_mov');
-const mdlTienda = require('../models/tiendas');
+
+const mdlStockDiarioIncial = require(path.join(process.cwd(), 'models', 'xamari', 'stock_diario_inicial'));
+const mdlStockDiarioMov = require(path.join(process.cwd(), 'models', 'xamari', 'stock_diario_mov'));
+const mdlTienda = require(path.join(process.cwd(), 'models', 'xamari', 'tiendas'));
 
 /*==========================
 METOGO POST | /registrar
@@ -52,8 +53,8 @@ ctrStockDiarioIncial.listaStockProducto = async (req, res, next) => {
         if (respuestaTienda.length <= 0) {
             //return res.status(404).json({ok: false, mensaje: 'EL SKU NO SE RECONOCE COMO STOCK INICIAL'});
 
-            const respuesta2 = await mdlStockDiarioMov.find({Codigointerno:sku}, {Tda:1, Codigointerno:1, stock:1, precioetiqueta:1, precioventa:1})
-            .sort({'id':1});
+            const respuesta2 = await mdlStockDiarioMov.find({Codigointerno:sku}, {id:1, Tda:1, Codigointerno:1, stock:1, precioetiqueta:1, precioventa:1})
+            .sort({'id':-1});
             if (respuesta2.length <= 0) {
                 return res.status(200).json({ok: false, mensaje: 'ERROR! SKU NO ENCONTRADO EN LA BASE DE DATOS DE STOCK POR SUCURSAL'});
             }
@@ -74,7 +75,8 @@ ctrStockDiarioIncial.listaStockProducto = async (req, res, next) => {
                 
                 respuesta4.filter((t) => {
                     if (t.tienda == respuesta2[d].Tda) {
-                        respuesta.push({tienda: t.tienda, zona: t.zonaname, nombre: t.nombre,
+                        respuesta.push({id: respuesta2[d].id,
+                            tienda: t.tienda, zona: t.zonaname, nombre: t.nombre,
                             sku: respuesta2[d].Codigointerno, stock: respuesta2[d].stock, precioetiqueta: respuesta2[d].precioetiqueta,
                             precioventa: respuesta2[d].precioventa
                         });
@@ -87,32 +89,40 @@ ctrStockDiarioIncial.listaStockProducto = async (req, res, next) => {
                 return res.status(404).json({ok: false, mensaje: 'LO SENTIMOS SKU TABLE MOVIMIENTOS. NO ENCONTRADO EN GRUPO DE TIENDA DE USUARIO'});
             }
 
+            let temp = {};
             let datos = [];
-            let stockNew = 0;
-            
-            respuesta.filter((m) => {
+            for (let i in respuesta) {
                 
-                if (m.Tda === m.Tda && m.Codigointerno === m.Codigointerno) {
-                    
-                    stockNew += m.stock;
-
-                    datos = {tienda: m.tienda, zona: m.zona, nombre: m.nombre,
-                        sku: m.sku, stock: stockNew, precioetiqueta: m.precioetiqueta, precioventa: m.precioventa
+                let concat = respuesta[i].sku + respuesta[i].tienda;
+                
+                if (typeof temp[concat] == 'undefined') {
+                    temp[concat] = {
+                        tienda: respuesta[i].tienda,
+                        zona: respuesta[i].zona,
+                        nombre: respuesta[i].nombre,
+                        sku: respuesta[i].sku,
+                        stock: 0,
+                        precioetiqueta: respuesta[i].precioetiqueta,
+                        precioventa: respuesta[i].precioventa
                     };
-
-                }else{
-
-                    stockNew = m.stock;
-                    datos.push({tienda: m.tienda, zona: m.zona, nombre: m.nombre,
-                        sku: m.sku, stock: stockNew, precioetiqueta: m.precioetiqueta, precioventa: m.precioventa
-                    });
-
                 }
 
-            })
+                temp[concat].stock += respuesta[i].stock;
 
-            //res.status(200).json({ok: true, data: datos});
+            }
 
+            for (const i in temp) {
+                datos.push({
+                    tienda:temp[i].tienda,
+                    zona:temp[i].zona,
+                    nombre:temp[i].nombre,
+                    sku:temp[i].sku,
+                    stock: temp[i].stock,
+                    precioetiqueta:temp[i].precioetiqueta,
+                    precioventa:temp[i].precioventa
+                });
+            }
+           
             return res.status(200).json({ok: true, data: datos});
 
         }

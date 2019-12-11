@@ -1,15 +1,16 @@
-/*====================================
-REQUIRIENDO EL MODELO DE USUARIO
-======================================*/
+'use strict'
 
+const path = require('path');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const ctrUsuarioApp = {};
-const mdlUsuarioApp = require('../models/usuario_app');
-const mdlTienda = require('../models/tiendas');
-const path = require('path');
+
+const mdlUsuarioApp = require(path.join(process.cwd(), 'models', 'xamari', 'usuario_app'));
+const mdlTienda = require(path.join(process.cwd(), 'models', 'xamari', 'tiendas'));
+
 const config = require(path.join(process.cwd(), 'config', 'config.js')).config();
+
 let xamarinSecret = config.JWT.XAMARIN.SECRET,
     xamarinExpire = config.JWT.XAMARIN.EXPIRES_IN;
 
@@ -33,7 +34,7 @@ ctrUsuarioApp.crearUsuarioApp = async (req, res, next) => {
         req.body.clave = await bcryptjs.hash(req.body.clave, 10);
         await mdlUsuarioApp.create(req.body);
 
-        res.status(200).json({ok: true, mensaje:"USUARIO CREADO CORRECTAMENTE"});
+        res.status(200).json({ok: true, mensaje: "USUARIO CREADO CORRECTAMENTE"});
         
     } catch (e) {
         if (e.code == 11000) {
@@ -67,6 +68,7 @@ ctrUsuarioApp.loginUsuarioApp = async (req, res, next) => {
         }
 
         let datos = {
+            perfil: respuesta.perfil,
             codigo: respuesta.codigo,
             nombres: respuesta.nombres,
             dni: respuesta.dni,
@@ -85,7 +87,68 @@ ctrUsuarioApp.loginUsuarioApp = async (req, res, next) => {
 }
 
 /*=================================
-EXPORTANDO EL VALOR {}
+METODO GET | /lista-usuario
 ===================================*/
+
+ctrUsuarioApp.listaUserApp = async (req, res, next) => {
+
+    try {
+        
+        const respuesta = await mdlUsuarioApp.find({perfil:"USER_PERFIL"}, {codigo:1, nombres:1, dni:1, tienda:1, estado:1});
+        if (respuesta.length <= 0) {
+            return res.status(404).json({ok: false, mensaje: 'ERROR USUARIO NO ENCONTRADO'})
+        }
+        res.status(200).json({ok: true, data: respuesta});
+
+    } catch (e) {
+        res.status(500).json({ok: false, mensaje: 'ERROR TO LIST USER'});
+        next(e);
+    }
+
+}
+
+/*===============================
+METODO POST | /lista-cod-usuario
+=================================*/
+
+ctrUsuarioApp.listaCodUser = async (req, res, next) => {
+
+    try {
+        
+        const respuesta = await mdlUsuarioApp.findById({_id:req.body.id}, {codigo:1, nombres:1, dni:1, tienda:1, estado:1});
+        if (!respuesta) {
+            res.status(404).json({ok: false, mensaje: 'ERROR USUARIO NO ENCONTRADO'});
+        }
+        res.status(200).json({ok: true, data: respuesta});
+
+    } catch (e) {
+        res.status(500).json({ok: false, mensaje: 'ERROR TO LIST USER'});
+        next(e);
+    }
+
+}
+
+/*===============================
+METODO PUT | /update-usuario
+=================================*/
+
+ctrUsuarioApp.updateCodUser = async (req, res, next) => {
+
+    try {
+
+        const respuesta = await mdlUsuarioApp.findByIdAndUpdate({_id:req.body.id},
+        {codigo: req.body.codigo, nombres: req.body.nombres, dni: req.body.dni, tienda: req.body.tienda, estado: req.body.estado});
+        if (!respuesta) {
+            res.status(404).json({ok: false, mensaje: 'ERROR USUARIO NO ENCONTRADO'});
+        }
+        res.status(200).json({ok: true, mensaje: 'USUARIO ACTUALIZADO CORRECTAMENTE'});
+
+    } catch (e) {
+        res.status(500).json({ok: false, mensaje: 'ERROR TO LIST USER'});
+        next(e);
+    }
+
+}
+
 
 module.exports = ctrUsuarioApp;
