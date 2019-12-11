@@ -19,9 +19,10 @@ async function jobStockBd() {
         const connect = await pool;
         const result = await connect.request()
             .execute(`Ecommerce.dbo.sp_md_UpdStock`);
-        if (result.recordset[0] == 'SUCCESS') {
+        if (result.recordset[0].resultado == 'SUCCESS') {
             return true;
         } else {
+            console.log(`(jobStockBd) ${result.recordset[0].resultado} / ${result.recordset[0].mensaje2}`, result.recordset[0].mensaje1)
             return false;
         }
     } catch (error) {
@@ -49,7 +50,7 @@ async function getStockBd(tipo) {
             .input('_refid', mssql.VarChar, refid)
             .query(`SELECT CAST(s.id_ref AS INT)              AS id,
                 tsm.stock_actual                   AS stock
-                FROM   ecommerce.tb_sku_marketplace       AS tsm WITH(NOLOCK)
+                FROM   Ecommerce.ecommerce.tb_sku_marketplace       AS tsm WITH(NOLOCK)
                 RIGHT JOIN vtex_passarela.dbo.sku  AS s WITH(NOLOCK)
                 ON  tsm.sku = s.ean
                 AND tsm.market_place = @_market
@@ -69,10 +70,10 @@ async function getStockBd(tipo) {
 async function attemptsSetStock(info) {
     let i = 1;
     do {
-        let time = Math.ceil(Math.random() * 5000);
+        let time = Math.ceil(Math.random() * 10000);
         await sleep(time);
         let commit = await setStock(info);
-        console.log(`Set Stock ${i} - ${info.id}`, commit);
+        console.log(`Set Stock ${i} - ${info.skuId}`, commit);
         if (commit) {
             i = 4;
         } else {
@@ -86,15 +87,20 @@ async function stock(product) {
         let time = Math.ceil(Math.random() * 10000);
         await sleep(time);
         let stockVtex = await getStock(product.id);
-        let warehousesId = stockVtex.balance[0].warehouseId;
-        let reserveStock = stockVtex.balance[0].reservedQuantity;
-        let nowStock = product.stock - reserveStock;
-        nowStock = (nowStock <= 0) ? 0 : nowStock;
-        attemptsSetStock({
-            id: prod.id,
-            wh: warehousesId,
-            stk: nowStock
-        })
+        // console.log('stockVtex', stockVtex)
+        if (stockVtex.balance[0].warehouseId) {
+            let warehousesId = stockVtex.balance[0].warehouseId;
+            let reserveStock = stockVtex.balance[0].reservedQuantity;
+            let nowStock = product.stock - reserveStock;
+            nowStock = (nowStock <= 0) ? 0 : nowStock;
+            attemptsSetStock({
+                skuId: product.id,
+                warehouse: warehousesId,
+                stock: nowStock
+            })
+        }else{
+            console.log(`Get Stock Vtex (stock) SkuId: ${product.id}`)
+        }
     } catch (error) {
         console.log('Set Stock Error (stock)', error)
     }
@@ -109,7 +115,7 @@ async function upStock(tipo) {
         let steps = 0;
         for (let i = 0; i < stockBdSize; i++) {
             steps++;
-            if (steps == 200) {
+            if (steps == 150) {
                 await sleep(40000);
                 steps = 0;
             }
@@ -122,6 +128,7 @@ async function upStock(tipo) {
 
 async function startStockVtex() {
     try {
+        console.log(`Start vtex stock ${new Date()}`)
         let jobStock = await jobStockBd();
         if (jobStock) {
             await upStock(2);

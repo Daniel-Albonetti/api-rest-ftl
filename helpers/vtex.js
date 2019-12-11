@@ -125,7 +125,7 @@ let setStock = (data) => {
             return true;
         })
         .catch((err) => {
-            console.log('Helpers/vtex.js (setStock)', err)
+            // console.log('Helpers/vtex.js (setStock)', err)
             return false;
         });
 }
