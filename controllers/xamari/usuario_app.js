@@ -56,6 +56,10 @@ ctrUsuarioApp.loginUsuarioApp = async (req, res, next) => {
     try {
 
         const respuesta = await mdlUsuarioApp.findOne({codigo:req.body.codigo})
+
+        if (respuesta == null) {
+            return res.status(200).json({ok: false, mensaje:"LO SENTIMOS! USUARIO NO ENCONTRADO"});
+        }
         
         if (respuesta.estado != true) {
             return res.status(200).json({ok: false, mensaje:"EL USUARIO NO TIENE ACCESO"})
