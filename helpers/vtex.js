@@ -104,7 +104,7 @@ let getStock = (skuId) => {
 let setStock = (data) => {
     let options = {
         method: 'PUT',
-        timeout: 2500,
+        timeout: 3500,
         headers: {
             'cache-control': 'no-cache',
             Host: 'passarelape.vtexcommercestable.com.br',
@@ -122,10 +122,11 @@ let setStock = (data) => {
     return fetch(`https://logistics.vtexcommercestable.com.br/api/logistics/pvt/inventory/skus/${data.skuId}/warehouses/${data.warehouse}?an=passarelape`, options)
         .then(checkStatus)
         .then((data) => {
-            return data;
+            return true;
         })
         .catch((err) => {
-            throw err;
+            // console.log('Helpers/vtex.js (setStock)', err)
+            return false;
         });
 }
 
