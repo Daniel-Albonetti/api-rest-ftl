@@ -32,7 +32,7 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
 
             if (respuesta.length == 1) {
 
-                console.log("ESTAMOS BUSCANDO POR TODA LA DESCRIPCION");
+                //console.log("ESTAMOS BUSCANDO POR TODA LA DESCRIPCION");
 
                 /*=========================
                 INICIO POR SKU
@@ -53,7 +53,7 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
                 const resultStockInicial = await mdlStockDiarioIncial.find({Codigointerno:{ $in: datosSkuCurva}, Tda:tienda });
                 if (resultStockInicial.length <= 0) {
 
-                    console.log("ESTAMOS EN MOVIMIENTOS");
+                    //console.log("ESTAMOS EN MOVIMIENTOS");
 
                     //return res.status(404).json({ok: false, mensaje: `¡ERROR! SKU EN INICIAL NO ENCONTRADOS EN TIENDA: ${tienda}`});
                     //SINO EXITE EN EL STOCK INICIAL EN TIENDA PREGUNTAR EN EL STOCK DE MOVIMIENTOS EN TIENDA
@@ -76,7 +76,7 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
                         
                     }
 
-                    console.log("respuesta2:", respuesta2);
+                    //console.log("respuesta2:", respuesta2);
 
                     let datosDetalleSumMovFinal = [];
                     respuesta2.filter((dp) => {
