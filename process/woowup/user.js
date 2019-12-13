@@ -3,6 +3,7 @@ const path = require('path');
 const User = require(path.join(process.cwd(), 'models', 'woowup', 'user.js'));
 const util = require('util');
 const sleep = util.promisify(setTimeout);
+const schedule = require('node-schedule');
 
 const {
     pool,
@@ -76,7 +77,7 @@ async function setUser(data) {
     }
 }
 
-let usersWoowUp = async () => {
+async function usersWoowUp() {
     try {
         let listUser = await getUsers();
         let listUserSize = listUser.length;
@@ -94,6 +95,15 @@ let usersWoowUp = async () => {
     }
 }
 
+let usersWoowUpAfternoon = schedule.scheduleJob('0 30 15 * * *', () => {
+    usersWoowUp();
+});
+
+let usersWoowUpNight = schedule.scheduleJob('0 30 20 * * *', () => {
+    usersWoowUp();
+});
+
 module.exports = {
-    usersWoowUp
+    usersWoowUpAfternoon,
+    usersWoowUpNight
 }

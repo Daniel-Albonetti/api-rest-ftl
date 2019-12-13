@@ -18,7 +18,7 @@ async function jobStockBd() {
     try {
         const connect = await pool;
         const result = await connect.request()
-            .execute(`Ecommerce.dbo.sp_md_UpdStock`);
+            .execute("Ecommerce.dbo.sp_md_UpdStock");
         if (result.recordset[0].resultado == 'SUCCESS') {
             return true;
         } else {

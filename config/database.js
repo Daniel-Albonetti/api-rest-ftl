@@ -10,7 +10,8 @@ const params = {
     user: config.DB.SQL.USER,
     password: config.DB.SQL.PASSWORD,
     port: config.DB.SQL.PORT,
-    connectionTimeout: config.DB.SQL.TIMEOUT,
+    connectionTimeout: config.DB.SQL.CONNECTION_TIMEOUT,
+    requestTimeout: config.DB.SQL.REQUEST_TIMEOUT,
     parseJSON: config.DB.SQL.PARSE_JSON
 }
 

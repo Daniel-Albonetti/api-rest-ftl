@@ -13,6 +13,11 @@ const {
 } = require(path.join(__dirname, 'vtex', 'stock', 'stock.js'));
 
 const {
+  usersWoowUpAfternoon,
+  usersWoowUpNight
+} = require(path.join(__dirname, 'woowup', 'user.js'));
+
+const {
   stockMovimientos
 } = require(path.join(__dirname, 'app', 'almacen_stock.js'));
 
@@ -33,6 +38,12 @@ setInterval(() => {
 stockVtexMorning;
 stockVtexAfternoon;
 stockVtexNight;
+
+/**
+ * User WoowUp
+ */
+usersWoowUpAfternoon;
+usersWoowUpNight;
 
 /**
  * Stock Movimientos App - Daniel - Jose

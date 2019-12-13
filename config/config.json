@@ -9,8 +9,10 @@
                 "USER": "apirest",
                 "PASSWORD": ")*j43[1>&2",
                 "PORT": 1433,
-                "TIMEOUT": 20000,
+                "CONNECTION_TIMEOUT": 300000,
+                "REQUEST_TIMEOUT": 300000,
                 "PARSE_JSON": true
+                }
             },
             "MONGO": {
                 "SERVER": "192.168.3.66",
