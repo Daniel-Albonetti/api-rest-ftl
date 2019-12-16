@@ -39,7 +39,7 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
                 ===========================*/
 
                 const respuesta2 = await mdlProductoApp.find({Categoria:respuesta[0].Categoria, Marca:respuesta[0].Marca, Modelo:respuesta[0].Modelo})
-                .sort({Talla:1})
+                .sort({Codigointerno:1})
                 if (respuesta2.length <= 0) {
                     return res.status(404).json({ok: false, mensaje: 'ERROR NO SE ENCONTRARON LA FAMILIA DEL SKU'});
                 }
@@ -76,31 +76,38 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
                         
                     }
 
-                    //console.log("respuesta2:", respuesta2);
-
                     let datosDetalleSumMovFinal = [];
                     respuesta2.filter((dp) => {
 
+                        let datienda = '---',
+                            dastock = 0,
+                            daprecioetiqueta = 0,
+                            daprecioventa = 0;
                         datosFinSoloMov.filter((dsm) => {
 
                             if (dp.Codigointerno === dsm.Codigointerno) {
-                                datosDetalleSumMovFinal.push({
-                                    tienda: dsm.Tda,
-                                    codigointerno: dsm.Codigointerno,
-                                    descripcion: dp.Descripcion,
-                                    categoria: dp.Categoria,
-                                    modelo: dp.Modelo,
-                                    stock: dsm.stock,
-                                    marca: dp.Marca,
-                                    color: dp.Color,
-                                    talla: dp.Talla,
-                                    precioetiqueta: dsm.precioetiqueta,
-                                    precioventa: dsm.precioventa,
-                                    urlimagen: "http://"+dp.urlimagen
-                                });
+                                datienda = dsm.Tda,
+                                dastock = dsm.stock,
+                                daprecioetiqueta = dsm.precioetiqueta,
+                                daprecioventa = dsm.precioventa;
                             }
 
                         })
+
+                        datosDetalleSumMovFinal.push({
+                            tienda: datienda,
+                            codigointerno: dp.Codigointerno,
+                            descripcion: dp.Descripcion,
+                            categoria: dp.Categoria,
+                            modelo: dp.Modelo,
+                            stock: dastock,
+                            marca: dp.Marca,
+                            color: dp.Color,
+                            talla: dp.Talla,
+                            precioetiqueta: daprecioetiqueta,
+                            precioventa: daprecioventa,
+                            urlimagen: "http://"+dp.urlimagen
+                        });
 
                     })
 
@@ -115,28 +122,38 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
                 let resultstockIni = [];
                 for (let y = 0; y < respuesta2.length; y++) {
 
+                    let datienda = '---',
+                    dastock = 0,
+                    daprecioetiqueta = 0,
+                    daprecioventa = 0;
+
                     resultStockInicial.filter((si) => {
                         
                         if (respuesta2[y].Codigointerno === si.Codigointerno) {
                             
-                            resultstockIni.push({
-                                tienda: si.Tda,
-                                codigointerno: si.Codigointerno,
-                                descripcion: respuesta2[y].Descripcion,
-                                categoria: respuesta2[y].Categoria,
-                                modelo: respuesta2[y].Modelo,
-                                stock: si.stock,
-                                marca: respuesta2[y].Marca,
-                                color: respuesta2[y].Color,
-                                talla: respuesta2[y].Talla,
-                                precioetiqueta: si.precioetiqueta,
-                                precioventa: si.precioventa,
-                                urlimagen: "http://"+respuesta2[y].urlimagen
-                            });
+                            datienda = si.Tda;
+                            dastock = si.stock;
+                            daprecioetiqueta = si.precioetiqueta;
+                            daprecioventa = si.precioventa;
         
                         }
         
                     })
+
+                    resultstockIni.push({
+                        tienda: datienda,
+                        codigointerno: respuesta2[y].Codigointerno,
+                        descripcion: respuesta2[y].Descripcion,
+                        categoria: respuesta2[y].Categoria,
+                        modelo: respuesta2[y].Modelo,
+                        stock: dastock,
+                        marca: respuesta2[y].Marca,
+                        color: respuesta2[y].Color,
+                        talla: respuesta2[y].Talla,
+                        precioetiqueta: daprecioetiqueta,
+                        precioventa: daprecioventa,
+                        urlimagen: "http://"+respuesta2[y].urlimagen
+                    });
         
                 }
 
@@ -217,7 +234,6 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
                     return res.status(404).json({ok: false, mensaje: `ERROR! PRODUCTO NO EXITE EN INICIAL NI EN MOVIMIENTO EN TIENDA: ${tienda}`});
                 }
 
-
                 let datosMovSumStock = {};
                 datosMovSumStock = groupBy(resultSctockMov, 'Codigointerno');
 
@@ -233,26 +249,35 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
                 let datosDetalleSumMovFinal = [];
                 respuesta2.filter((dp) => {
 
+                    let datienda = '---',
+                    dastock = 0,
+                    daprecioetiqueta = 0,
+                    daprecioventa = 0;
                     datosFinSoloMov.filter((dsm) => {
 
                         if (dp.Codigointerno === dsm.Codigointerno) {
-                            datosDetalleSumMovFinal.push({
-                                tienda: dsm.Tda,
-                                codigointerno: dsm.Codigointerno,
-                                descripcion: dp.Descripcion,
-                                categoria: dp.Categoria,
-                                modelo: dp.Modelo,
-                                stock: dsm.stock,
-                                marca: dp.Marca,
-                                color: dp.Color,
-                                talla: dp.Talla,
-                                precioetiqueta: dsm.precioetiqueta,
-                                precioventa: dsm.precioventa,
-                                urlimagen: "http://"+dp.urlimagen
-                            });
+                            datienda = dsm.Tda;
+                            dastock = dsm.stock;
+                            daprecioetiqueta = dsm.precioetiqueta;
+                            daprecioventa = dsm.precioventa;
                         }
 
                     })
+
+                    datosDetalleSumMovFinal.push({
+                        tienda: datienda,
+                        codigointerno: dp.Codigointerno,
+                        descripcion: dp.Descripcion,
+                        categoria: dp.Categoria,
+                        modelo: dp.Modelo,
+                        stock: dastock,
+                        marca: dp.Marca,
+                        color: dp.Color,
+                        talla: dp.Talla,
+                        precioetiqueta: daprecioetiqueta,
+                        precioventa: daprecioventa,
+                        urlimagen: "http://"+dp.urlimagen
+                    });
 
                 })
 
@@ -267,28 +292,34 @@ ctrProductoApp.listaCurva = async (req, res, next) => {
             let resultstockIni = [];
             for (let y = 0; y < respuesta2.length; y++) {
 
+                let datienda = '---',
+                    dastock = 0,
+                    daprecioetiqueta = 0,
+                    daprecioventa = 0;
                 resultStockInicial.filter((si) => {
                     
                     if (respuesta2[y].Codigointerno === si.Codigointerno) {
-                        
-                        resultstockIni.push({
-                            tienda: si.Tda,
-                            codigointerno: si.Codigointerno,
-                            descripcion: respuesta2[y].Descripcion,
-                            categoria: respuesta2[y].Categoria,
-                            modelo: respuesta2[y].Modelo,
-                            stock: si.stock,
-                            marca: respuesta2[y].Marca,
-                            color: respuesta2[y].Color,
-                            talla: respuesta2[y].Talla,
-                            precioetiqueta: si.precioetiqueta,
-                            precioventa: si.precioventa,
-                            urlimagen: "http://"+respuesta2[y].urlimagen
-                        });
-    
+                        datienda = si.Tda,
+                        dastock = si.stock,
+                        daprecioetiqueta = si.precioetiqueta,
+                        daprecioventa = si.precioventa;
                     }
-    
                 })
+
+                resultstockIni.push({
+                    tienda: datienda,
+                    codigointerno: respuesta2[y].Codigointerno,
+                    descripcion: respuesta2[y].Descripcion,
+                    categoria: respuesta2[y].Categoria,
+                    modelo: respuesta2[y].Modelo,
+                    stock: dastock.stock,
+                    marca: respuesta2[y].Marca,
+                    color: respuesta2[y].Color,
+                    talla: respuesta2[y].Talla,
+                    precioetiqueta: daprecioetiqueta.precioetiqueta,
+                    precioventa: daprecioventa.precioventa,
+                    urlimagen: "http://"+respuesta2[y].urlimagen
+                });
     
             }
 

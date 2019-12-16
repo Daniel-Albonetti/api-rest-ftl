@@ -12,7 +12,6 @@
                 "CONNECTION_TIMEOUT": 300000,
                 "REQUEST_TIMEOUT": 300000,
                 "PARSE_JSON": true
-                }
             },
             "MONGO": {
                 "SERVER": "192.168.3.66",
