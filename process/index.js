@@ -21,33 +21,81 @@ const {
   stockMovimientos
 } = require(path.join(__dirname, 'app', 'almacen_stock.js'));
 
-let timeStatus_Vtex = 10 * 60 * 1000; //10 min
-let timeStock_Movimientos = 60000; // 1 min
+const {
+  mtdDetalle_Producto_ML
+} = require(path.join(__dirname, 'mercadolibre', 'detalle_producto'));
 
-stockMovimientos();
-statusFeed();
-/**
- * Feed Status Vtex
- */
-setInterval(() => {
-  statusFeed();
-}, timeStatus_Vtex);
-/**
- * Stock Vtex
- */
-stockVtexMorning;
-stockVtexAfternoon;
-stockVtexNight;
+const {
+  mtdProductoML,
+  mtdActualizarProducto,
+  mtdUpdNewProducto,
+  mtdDeleteProducto,
+  mtdAnalyticAlways,
+  mtdProductosExistente,
+  mtdCanalVenta,
+  mtdUpdImage,
+  mtdActualizarStockCanalVenta
+} = require(path.join(__dirname, 'mercadolibre', 'producto'));
 
-/**
- * User WoowUp
- */
-usersWoowUpAfternoon;
-usersWoowUpNight;
+const {
+  mtdPublicacionesML
+} = require(path.join(__dirname, 'mercadolibre', 'publicaciones'));
 
-/**
- * Stock Movimientos App - Daniel - Jose
- */
-setInterval(() => {
-  stockMovimientos();
-}, timeStock_Movimientos);
+const {
+  mtdNewOrderML
+} = require(path.join(__dirname, 'mercadolibre', 'orden_compra'));
+
+// mtdDetalle_Producto_ML();
+
+// mtdProductoML();
+
+// mtdPublicacionesML();
+
+// mtdActualizarProducto();
+
+mtdActualizarStockCanalVenta();
+
+// mtdCanalVenta();
+
+// mtdUpdImage();
+
+// mtdProductosExistente();
+
+// mtdAnalyticAlways();
+
+// mtdNewOrderML();
+
+// mtdDeleteProducto();
+
+// mtdUpdNewProducto();
+
+// let timeStatus_Vtex = 10 * 60 * 1000; //10 min
+// let timeStock_Movimientos = 60000; // 1 min
+
+// stockMovimientos();
+// statusFeed();
+// /**
+//  * Feed Status Vtex
+//  */
+// setInterval(() => {
+//   statusFeed();
+// }, timeStatus_Vtex);
+// /**
+//  * Stock Vtex
+//  */
+// stockVtexMorning;
+// stockVtexAfternoon;
+// stockVtexNight;
+
+// /**
+//  * User WoowUp
+//  */
+// usersWoowUpAfternoon;
+// usersWoowUpNight;
+
+// /**
+//  * Stock Movimientos App - Daniel - Jose
+//  */
+// setInterval(() => {
+//   stockMovimientos();
+// }, timeStock_Movimientos);

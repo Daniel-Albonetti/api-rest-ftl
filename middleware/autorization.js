@@ -172,11 +172,28 @@ let verifyTokenXamari = async (req, res, next) => {
     }
 }
 
+const verificarSuperAdminPerfilXamari = (req, res, next) => {
+
+    let usuario = req.usuario;
+
+    if (usuario.perfil === 'SUPERADMIN_PERFIL') {
+        next();
+    }else{
+
+        return res.json({
+            ok: false,
+            mensaje: '¡ERROR! USUARIO NO AUTORIZADO'
+        })
+
+    }
+
+} 
+
 const verificarPerfilXamari = (req, res, next) => {
 
     let usuario = req.usuario;
 
-    if (usuario.perfil === 'ADMIN_PERFIL') {
+    if (usuario.perfil === 'ADMIN_PERFIL' || usuario.perfil === 'SUPERADMIN_PERFIL') {
         next();
     }else{
 
@@ -196,5 +213,6 @@ module.exports = {
     getTokenFlutter,
     verifyTokenFlutter,
     verifyTokenXamari,
-    verificarPerfilXamari
+    verificarPerfilXamari,
+    verificarSuperAdminPerfilXamari
 }

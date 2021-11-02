@@ -12,10 +12,19 @@ let credentials = {
     clientSecret: config.CREDENTIALS.MERCADOLIBRE.CLIENTSECRET
 }
 
+const tokenMercadoLibreController = require(path.join(process.cwd(), 'controllers', 'mercado_libre', 'token'));
+
+router.get('/tokenML', tokenMercadoLibreController.token);
+router.get('/adquirerToken', tokenMercadoLibreController.adquirerToken);
+
+
 router.get('/footloose', function(req, res) {
-    var redirectUrl = util.format('https://auth.mercadolibre.com.pe/authorization?response_type=code&client_id=%s',
+    var redirectUrl = util.format('https://auth.mercadolibre.com.pe/authorization?response_type=code&client_id=',
         credentials.clientId);
     res.redirect(redirectUrl);
+
+
+
 });
 
 router.get('/footloose/callback', function(req, res) {
